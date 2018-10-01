@@ -1,9 +1,17 @@
 package cz.uhk.fim.todolist.gui;
 
+import cz.uhk.fim.todolist.model.TodoList;
+
 import javax.swing.*;
+import javax.swing.table.TableModel;
 import java.awt.*;
 
 public class Frame extends JFrame {
+
+    private JTable table;
+    private TodoList todoList;
+    private TodoTableModel model;
+
     public Frame() {
         intit();
     }
@@ -13,7 +21,13 @@ public class Frame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(640, 480);
         setLocationRelativeTo(null);
+
+        todoList = new TodoList();
+        model = new TodoTableModel();
+        model.setTodoList(todoList);
+
         initControlPanel();
+        intiContentPanel();
     }
 
     private void initControlPanel() {
@@ -35,6 +49,11 @@ public class Frame extends JFrame {
     }
 
     private void intiContentPanel() {
+        JPanel contentPanel = new JPanel(new BorderLayout());
+        table = new JTable();
+        table.setModel(model);
+        contentPanel.add(new JScrollPane(table));
+        add(contentPanel,BorderLayout.CENTER);
 
     }
 }
