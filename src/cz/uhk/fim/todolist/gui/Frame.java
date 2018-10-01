@@ -1,10 +1,13 @@
 package cz.uhk.fim.todolist.gui;
 
+import cz.uhk.fim.todolist.model.TodoItem;
 import cz.uhk.fim.todolist.model.TodoList;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Frame extends JFrame {
 
@@ -12,6 +15,7 @@ public class Frame extends JFrame {
     private TodoList todoList;
     private TodoTableModel model;
 
+    //todo check - set date & if nazev !null
     public Frame() {
         intit();
     }
@@ -43,7 +47,17 @@ public class Frame extends JFrame {
         formPanel.add(btnAdd, BorderLayout.EAST);
 
         controlPanel.add(formPanel, BorderLayout.NORTH);
-        add(controlPanel);
+        add(controlPanel, BorderLayout.NORTH);
+
+        btnAdd.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                TodoItem todoItem = new TodoItem(txtAddTodo.getText());
+                txtAddTodo.setText("");
+                todoList.addItem(todoItem);
+                model.setTodoList(todoList);
+            }
+        });
 
 
     }
@@ -53,7 +67,7 @@ public class Frame extends JFrame {
         table = new JTable();
         table.setModel(model);
         contentPanel.add(new JScrollPane(table));
-        add(contentPanel,BorderLayout.CENTER);
+        add(contentPanel, BorderLayout.CENTER);
 
     }
 }
