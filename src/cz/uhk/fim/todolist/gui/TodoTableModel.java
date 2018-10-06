@@ -4,6 +4,9 @@ import cz.uhk.fim.todolist.model.TodoItem;
 import cz.uhk.fim.todolist.model.TodoList;
 
 import javax.swing.table.AbstractTableModel;
+import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TodoTableModel extends AbstractTableModel {
 
@@ -44,12 +47,19 @@ public class TodoTableModel extends AbstractTableModel {
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         TodoItem item = todoList.getItem(rowIndex);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy hh:mm");
         switch (columnIndex) {
             case 0:
                 item.setTitle((String) aValue);
                 break;
             case 1:
                 item.setCompleted((Boolean) aValue);
+                if ((Boolean) aValue) {
+                    item.setDate(dateFormat.format(new Date()));
+                } else {
+                    item.setDate("");
+                }
+                setTodoList(todoList);
                 break;
             default:
                 break;
@@ -64,7 +74,7 @@ public class TodoTableModel extends AbstractTableModel {
             case 1:
                 return "Dokončeno";
             case 2:
-                return "Datum na dokončení";
+                return "Datum dokončení";
             default:
                 return "?";
         }
@@ -86,6 +96,6 @@ public class TodoTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return super.isCellEditable(rowIndex, columnIndex);
+        return !(columnIndex == 3);
     }
 }

@@ -52,10 +52,11 @@ public class Frame extends JFrame {
         btnAdd.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                TodoItem todoItem = new TodoItem(txtAddTodo.getText());
-                txtAddTodo.setText("");
-                todoList.addItem(todoItem);
-                model.setTodoList(todoList);
+                if (!txtAddTodo.getText().equals("")) {
+                    TodoItem todoItem = new TodoItem(txtAddTodo.getText());
+                    todoList.addItem(todoItem);
+                    model.setTodoList(todoList);
+                }
             }
         });
 
