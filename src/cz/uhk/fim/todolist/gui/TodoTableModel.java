@@ -47,7 +47,7 @@ public class TodoTableModel extends AbstractTableModel {
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         TodoItem item = todoList.getItem(rowIndex);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         switch (columnIndex) {
             case 0:
                 item.setTitle((String) aValue);

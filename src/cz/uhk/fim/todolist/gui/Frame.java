@@ -55,6 +55,7 @@ public class Frame extends JFrame {
                 if (!txtAddTodo.getText().equals("")) {
                     TodoItem todoItem = new TodoItem(txtAddTodo.getText());
                     todoList.addItem(todoItem);
+                    txtAddTodo.setText("");
                     model.setTodoList(todoList);
                 }
             }
