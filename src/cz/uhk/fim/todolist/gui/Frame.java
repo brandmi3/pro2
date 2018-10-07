@@ -41,22 +41,27 @@ public class Frame extends JFrame {
         JLabel lblAddTodo = new JLabel("Zadejte Todo:");
         JTextField txtAddTodo = new JTextField();
         JButton btnAdd = new JButton("Přidat");
+        JLabel txtErrorMsg = new JLabel("Chybná hodnota");
+        txtErrorMsg.setVisible(false);
 
         formPanel.add(lblAddTodo, BorderLayout.WEST);
         formPanel.add(txtAddTodo, BorderLayout.CENTER);
         formPanel.add(btnAdd, BorderLayout.EAST);
+        formPanel.add(txtErrorMsg, BorderLayout.SOUTH);
 
         controlPanel.add(formPanel, BorderLayout.NORTH);
         add(controlPanel, BorderLayout.NORTH);
-
         btnAdd.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!txtAddTodo.getText().equals("")) {
+                if (!txtAddTodo.getText().trim().equals("")) {
+                    txtErrorMsg.setVisible(false);
                     TodoItem todoItem = new TodoItem(txtAddTodo.getText());
                     todoList.addItem(todoItem);
                     txtAddTodo.setText("");
                     model.setTodoList(todoList);
+                } else {
+                    txtErrorMsg.setVisible(true);
                 }
             }
         });
